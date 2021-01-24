@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/stefnet-tests/static/css/main.f6dc3c07.chunk.css",
+    "main.css": "/stefnet-tests/static/css/main.0dd41c64.chunk.css",
     "main.js": "/stefnet-tests/static/js/main.e56f5952.chunk.js",
     "main.js.map": "/stefnet-tests/static/js/main.e56f5952.chunk.js.map",
     "runtime-main.js": "/stefnet-tests/static/js/runtime-main.f50b7b03.js",
@@ -10,13 +10,13 @@
     "static/js/3.6bd82fa0.chunk.js": "/stefnet-tests/static/js/3.6bd82fa0.chunk.js",
     "static/js/3.6bd82fa0.chunk.js.map": "/stefnet-tests/static/js/3.6bd82fa0.chunk.js.map",
     "index.html": "/stefnet-tests/index.html",
-    "static/css/main.f6dc3c07.chunk.css.map": "/stefnet-tests/static/css/main.f6dc3c07.chunk.css.map",
+    "static/css/main.0dd41c64.chunk.css.map": "/stefnet-tests/static/css/main.0dd41c64.chunk.css.map",
     "static/js/2.b6b9be70.chunk.js.LICENSE.txt": "/stefnet-tests/static/js/2.b6b9be70.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f50b7b03.js",
     "static/js/2.b6b9be70.chunk.js",
-    "static/css/main.f6dc3c07.chunk.css",
+    "static/css/main.0dd41c64.chunk.css",
     "static/js/main.e56f5952.chunk.js"
   ]
 }
