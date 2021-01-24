@@ -2,7 +2,7 @@
   "name": "tensorflow",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://stefnet.github.io/tests/",
+  "homepage": "http://stefnet.github.io/stefnet-tests/",
   "dependencies": {
     "@tensorflow-models/posenet": "^2.2.1",
     "@tensorflow/tfjs": "^2.8.5",
