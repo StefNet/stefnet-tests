@@ -9,3 +9,7 @@ canvas {
   text-align: center;
   z-index: 2;
 }
+
+body {
+  background: grey;
+}
