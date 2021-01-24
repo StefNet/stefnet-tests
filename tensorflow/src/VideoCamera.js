@@ -46,7 +46,7 @@ function VideoCamera({ videoRef }) {
           </select>
         )}
       </form>
-      <video ref={videoRef} />
+      <video ref={videoRef} playsinline autoplay />
     </>
   );
 }
