@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/stefnet-tests/tensorflow/static/css/main.f6dc3c07.chunk.css",
+    "main.js": "/stefnet-tests/tensorflow/static/js/main.d9cb231e.chunk.js",
+    "main.js.map": "/stefnet-tests/tensorflow/static/js/main.d9cb231e.chunk.js.map",
+    "runtime-main.js": "/stefnet-tests/tensorflow/static/js/runtime-main.24bab044.js",
+    "runtime-main.js.map": "/stefnet-tests/tensorflow/static/js/runtime-main.24bab044.js.map",
+    "static/js/2.b6b9be70.chunk.js": "/stefnet-tests/tensorflow/static/js/2.b6b9be70.chunk.js",
+    "static/js/2.b6b9be70.chunk.js.map": "/stefnet-tests/tensorflow/static/js/2.b6b9be70.chunk.js.map",
+    "static/js/3.6bd82fa0.chunk.js": "/stefnet-tests/tensorflow/static/js/3.6bd82fa0.chunk.js",
+    "static/js/3.6bd82fa0.chunk.js.map": "/stefnet-tests/tensorflow/static/js/3.6bd82fa0.chunk.js.map",
+    "index.html": "/stefnet-tests/tensorflow/index.html",
+    "static/css/main.f6dc3c07.chunk.css.map": "/stefnet-tests/tensorflow/static/css/main.f6dc3c07.chunk.css.map",
+    "static/js/2.b6b9be70.chunk.js.LICENSE.txt": "/stefnet-tests/tensorflow/static/js/2.b6b9be70.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.24bab044.js",
+    "static/js/2.b6b9be70.chunk.js",
+    "static/css/main.f6dc3c07.chunk.css",
+    "static/js/main.d9cb231e.chunk.js"
+  ]
+}
