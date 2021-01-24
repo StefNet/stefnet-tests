@@ -40,8 +40,17 @@ export const getFilteredBodyparts = (keypoints, bodyparts) =>
  * @todo create seperate fuctions for updating camera and getting contraints
  */
 export function getConstraints(camera) {
+  if (camera) {
+    return {
+      audio: false,
+      video: camera,
+    };
+  }
+
   return {
     audio: false,
-    video: camera ? { deviceId: { exact: camera } } : true,
+    video: {
+      facingMode: "user",
+    },
   };
 }
