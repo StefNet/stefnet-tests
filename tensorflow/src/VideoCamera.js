@@ -29,6 +29,8 @@ function VideoCamera({ videoRef }) {
       .then((stream) => {
         let video = videoRef.current;
         video.srcObject = stream;
+        video.setAttribute("playsinline", true);
+        video.setAttribute("autoplay", true);
         video.play();
       });
   }, [videoRef, activeCamera]);
@@ -46,7 +48,7 @@ function VideoCamera({ videoRef }) {
           </select>
         )}
       </form>
-      <video ref={videoRef} playsinline autoplay />
+      <video ref={videoRef} />
     </>
   );
 }

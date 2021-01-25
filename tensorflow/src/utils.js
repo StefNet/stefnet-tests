@@ -22,7 +22,7 @@ export function drawTextPoints(keypoints, minConfidence, ctx, scale = 1) {
 }
 
 /**
- * Return filtered bodyparts
+ * Get filtered bodyparts
  */
 export const getFilteredBodyparts = (keypoints, bodyparts) =>
   keypoints.reduce((filtered, option) => {
