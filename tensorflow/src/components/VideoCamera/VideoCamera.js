@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import useUserMedia from "./hooks/useUserMedia";
+import { useEffect } from "react";
+import useUserMedia from "./useUserMedia";
 
 function VideoCamera({ videoRef, constraints }) {
   const { error, status, stream } = useUserMedia(constraints);
@@ -10,10 +10,12 @@ function VideoCamera({ videoRef, constraints }) {
     }
 
     const video = videoRef.current;
-
     video.srcObject = stream;
+
+    // Required for IOS
     video.setAttribute("playsinline", true);
     video.setAttribute("autoplay", true);
+
     video.play();
   }, [stream]);
 
@@ -21,7 +23,7 @@ function VideoCamera({ videoRef, constraints }) {
     return <p>{"Loading..."}</p>;
   }
 
-  if (status === "rejected") {
+  if (status === "error") {
     return <p>{error.message}</p>;
   }
 

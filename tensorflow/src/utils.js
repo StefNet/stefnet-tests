@@ -15,10 +15,40 @@ export function drawTextPoints(keypoints, minConfidence, ctx, scale = 1) {
     const { y, x } = keypoint.position;
 
     // Draws the text/emoticons on the keypoints
-    ctx.beginPath();
-    ctx.arc(x * scale, y * scale, 3, 0, 2 * Math.PI);
-    ctx.fillText(keypoint.emoticon, x, y);
+    drawEmoticon(ctx, x, y, scale, keypoint.emoticon);
   }
+}
+
+function drawEmoticon(ctx, x, y, scale, emoticon) {
+  // Draws the text/emoticons on the keypoints
+  ctx.beginPath();
+  ctx.arc(x * scale, y * scale, 3, 0, 2 * Math.PI);
+  ctx.fillText(emoticon, x, y);
+}
+
+export const drawEmoticons = (
+  pose,
+  video,
+  videoWidth,
+  videoHeight,
+  canvas,
+  emoticons
+) => {
+  const ctx = canvas.current.getContext("2d");
+  const filteredResult = getFilteredBodyparts(pose.keypoints, emoticons);
+
+  canvas.current.width = videoWidth;
+  canvas.current.height = videoHeight;
+
+  drawTextPoints(filteredResult, 0.9, ctx, 1);
+};
+
+/**
+ * Clears the canvas
+ */
+export function clearCanvas(canvas) {
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
@@ -53,4 +83,19 @@ export function getConstraints(camera) {
       facingMode: "user",
     },
   };
+}
+
+function stopAndRemoveTrack(mediaStream) {
+  return function (track) {
+    track.stop();
+    mediaStream.removeTrack(track);
+  };
+}
+
+export function stopMediaStream(mediaStream) {
+  if (!mediaStream) {
+    return;
+  }
+
+  mediaStream.getTracks().forEach(stopAndRemoveTrack(mediaStream));
 }

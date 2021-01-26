@@ -1,59 +1,26 @@
 import { useRef, useState, useCallback } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
-import { getFilteredBodyparts, drawTextPoints } from "./utils";
+import { clearCanvas, stopMediaStream, drawEmoticons } from "./utils";
 
 import "./App.css";
-import VideoCamera from "./VideoCamera";
+import VideoCamera from "./components/VideoCamera/VideoCamera";
 
-// Settings for emoticons
-const bodyPartsEmoticons = {
-  nose: "👀",
-  leftEye: "💩",
-  rightEye: "💩",
-  // leftEar: "",
-  // rightEar: "",
-  // leftShoulder: "",
-  // rightShoulder: "",
-  // leftElbow: "",
-  // rightElbow: "",
-  // leftWrist: "",
-  // rightWrist: "",
-  // leftHip: "",
-  // rightHip: "",
-  // leftKnee: "",
-  // rightKnee: "",
-  // leftAnkle: "",
-  // rightAnkle: "",
+// TODOS
+// - Use native camera resolution as input resolution for posenet
+// - Only show switch camera button if there are multiple cameras
+
+// App consts
+const REFRESH_RATE = 500;
+const INPUT_RESOLUTION = { width: 640, height: 480 };
+const SCALE = 0.8;
+const EMOTICONS = {
+  nose: "🔔",
+  leftEye: "❤️",
+  rightEye: "❤️",
+  leftEar: "💡",
+  rightEar: "💡",
 };
-
-const drawEmoticons = (pose, video, videoWidth, videoHeight, canvas) => {
-  const ctx = canvas.current.getContext("2d");
-  const filteredResult = getFilteredBodyparts(
-    pose.keypoints,
-    bodyPartsEmoticons
-  );
-
-  canvas.current.width = videoWidth;
-  canvas.current.height = videoHeight;
-
-  drawTextPoints(filteredResult, 0.9, ctx, 1);
-};
-
-function stopAndRemoveTrack(mediaStream) {
-  return function (track) {
-    track.stop();
-    mediaStream.removeTrack(track);
-  };
-}
-
-function stopMediaStream(mediaStream) {
-  if (!mediaStream) {
-    return;
-  }
-
-  mediaStream.getTracks().forEach(stopAndRemoveTrack(mediaStream));
-}
 
 function App() {
   const [facingMode, setFacingMode] = useState("user");
@@ -61,11 +28,8 @@ function App() {
   const canvasEl = useRef(null);
 
   const handleCameraClick = useCallback(() => {
-    const camera = webcamEl.current;
-    console.log(camera.srcObject);
-    // camera.pause();
-    // camera.srcObject = null;
-    stopMediaStream(camera.srcObject);
+    stopMediaStream(canvasEl.current.srcObject);
+    clearCanvas(canvasEl.current);
     setFacingMode(facingMode === "environment" ? "user" : "environment");
   }, [facingMode]);
 
@@ -80,35 +44,44 @@ function App() {
 
       // Get pose and detect body parts using the posenet model
       const posenet = await posenet_model.estimateSinglePose(camera);
-      drawEmoticons(posenet, camera, videoWidth, videoHeight, canvasEl);
+      drawEmoticons(
+        posenet,
+        camera,
+        videoWidth,
+        videoHeight,
+        canvasEl,
+        EMOTICONS
+      );
     }
   };
 
   const initPoseNet = async () => {
     const model = await posenet.load({
-      inputResolution: { width: 640, height: 480 },
-      scale: 0.8,
+      inputResolution: INPUT_RESOLUTION,
+      scale: SCALE,
     });
 
     setInterval(() => {
       detectPose(model);
-    }, 5000);
+    }, REFRESH_RATE);
   };
 
   initPoseNet();
 
   return (
     <div className="App">
-      <button onClick={handleCameraClick}>flipbutton</button>
-      <VideoCamera
-        videoRef={webcamEl}
-        constraints={{
-          video: {
-            facingMode,
-          },
-        }}
-      />
-      <canvas ref={canvasEl} />
+      <div className="video-container">
+        <VideoCamera
+          videoRef={webcamEl}
+          constraints={{
+            video: {
+              facingMode,
+            },
+          }}
+        />
+        <canvas ref={canvasEl} />
+        <button onClick={handleCameraClick}>Flip cameras</button>
+      </div>
     </div>
   );
 }

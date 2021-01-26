@@ -17,7 +17,7 @@ export default function useUserMedia(constraints) {
       },
       (error) => {
         if (!canceled) {
-          setStatus("rejected");
+          setStatus("error");
           setError(error);
         }
       }
