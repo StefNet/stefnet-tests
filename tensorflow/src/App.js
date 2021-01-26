@@ -27,13 +27,6 @@ const bodyPartsEmoticons = {
   // rightAnkle: "",
 };
 
-const initialConstraints = {
-  video: true,
-};
-
-const FACING_MODE_USER = "user";
-const FACING_MODE_ENVIRONMENT = "environment";
-
 const drawEmoticons = (pose, video, videoWidth, videoHeight, canvas) => {
   const ctx = canvas.current.getContext("2d");
   const filteredResult = getFilteredBodyparts(
@@ -47,16 +40,32 @@ const drawEmoticons = (pose, video, videoWidth, videoHeight, canvas) => {
   drawTextPoints(filteredResult, 0.9, ctx, 1);
 };
 
+function stopAndRemoveTrack(mediaStream) {
+  return function (track) {
+    track.stop();
+    mediaStream.removeTrack(track);
+  };
+}
+
+function stopMediaStream(mediaStream) {
+  if (!mediaStream) {
+    return;
+  }
+
+  mediaStream.getTracks().forEach(stopAndRemoveTrack(mediaStream));
+}
+
 function App() {
-  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+  const [facingMode, setFacingMode] = useState("user");
   const webcamEl = useRef(null);
   const canvasEl = useRef(null);
 
   const handleCameraClick = useCallback(() => {
     const camera = webcamEl.current;
-    camera.pause();
-    camera.srcObject = null;
-
+    console.log(camera.srcObject);
+    // camera.pause();
+    // camera.srcObject = null;
+    stopMediaStream(camera.srcObject);
     setFacingMode(facingMode === "environment" ? "user" : "environment");
   }, [facingMode]);
 
@@ -94,8 +103,9 @@ function App() {
       <VideoCamera
         videoRef={webcamEl}
         constraints={{
-          ...initialConstraints,
-          facingMode,
+          video: {
+            facingMode,
+          },
         }}
       />
       <canvas ref={canvasEl} />
