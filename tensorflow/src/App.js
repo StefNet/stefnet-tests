@@ -70,18 +70,16 @@ function App() {
 
   return (
     <div className="App">
-      <div className="video-container">
-        <VideoCamera
-          videoRef={webcamEl}
-          constraints={{
-            video: {
-              facingMode,
-            },
-          }}
-        />
-        <canvas ref={canvasEl} />
-        <button onClick={handleCameraClick}>Flip cameras</button>
-      </div>
+      <VideoCamera
+        videoRef={webcamEl}
+        constraints={{
+          video: {
+            facingMode,
+          },
+        }}
+      />
+      <canvas ref={canvasEl} />
+      <button onClick={handleCameraClick}>Flip cameras</button>
     </div>
   );
 }

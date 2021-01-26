@@ -26,14 +26,14 @@ function drawEmoticon(ctx, x, y, scale, emoticon) {
   ctx.fillText(emoticon, x, y);
 }
 
-export const drawEmoticons = (
+export function drawEmoticons(
   pose,
   video,
   videoWidth,
   videoHeight,
   canvas,
   emoticons
-) => {
+) {
   const ctx = canvas.current.getContext("2d");
   const filteredResult = getFilteredBodyparts(pose.keypoints, emoticons);
 
@@ -41,7 +41,7 @@ export const drawEmoticons = (
   canvas.current.height = videoHeight;
 
   drawTextPoints(filteredResult, 0.9, ctx, 1);
-};
+}
 
 /**
  * Clears the canvas
@@ -85,6 +85,7 @@ export function getConstraints(camera) {
   };
 }
 
+// taken from https://github.com/bsonntag/stop-media-stream/blob/main/index.js
 function stopAndRemoveTrack(mediaStream) {
   return function (track) {
     track.stop();
