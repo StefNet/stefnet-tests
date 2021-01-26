@@ -12,5 +12,10 @@ canvas {
 
 button {
   position: absolute;
+  bottom: 20px;
+  margin: 0 auto;
+  width: 200px;
+  background: red;
+  border-radius: 20px;
   z-index: 3;
 }
