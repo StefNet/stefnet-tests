@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/stefnet-tests/static/css/main.dd3fdeaa.chunk.css",
-    "main.js": "/stefnet-tests/static/js/main.75002921.chunk.js",
-    "main.js.map": "/stefnet-tests/static/js/main.75002921.chunk.js.map",
+    "main.js": "/stefnet-tests/static/js/main.ca4af295.chunk.js",
+    "main.js.map": "/stefnet-tests/static/js/main.ca4af295.chunk.js.map",
     "runtime-main.js": "/stefnet-tests/static/js/runtime-main.f50b7b03.js",
     "runtime-main.js.map": "/stefnet-tests/static/js/runtime-main.f50b7b03.js.map",
     "static/js/2.5ccffe80.chunk.js": "/stefnet-tests/static/js/2.5ccffe80.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f50b7b03.js",
     "static/js/2.5ccffe80.chunk.js",
     "static/css/main.dd3fdeaa.chunk.css",
-    "static/js/main.75002921.chunk.js"
+    "static/js/main.ca4af295.chunk.js"
   ]
 }
