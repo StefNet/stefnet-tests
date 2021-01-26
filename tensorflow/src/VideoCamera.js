@@ -1,53 +1,84 @@
 import { useEffect, useState } from "react";
 
-import { getConstraints } from "./utils";
+// function stopAndRemoveTrack(mediaStream) {
+//   return function (track) {
+//     track.stop();
+//     mediaStream.removeTrack(track);
+//   };
+// }
 
-function VideoCamera({ videoRef }) {
-  const [cameras, setCameras] = useState([]);
-  const [activeCamera, setActiveCamera] = useState("");
+// function stopMediaStream(mediaStream) {
+//   if (!mediaStream) {
+//     return;
+//   }
 
-  const handleCameraChange = (e) => {
-    setActiveCamera(e.target.value);
-  };
+//   mediaStream.getTracks().forEach(stopAndRemoveTrack(mediaStream));
+// }
+
+function useUserMedia(constraints) {
+  const [stream, setStream] = useState();
+  const [error, setError] = useState();
+  const [state, setState] = useState("pending");
+  console.log("constraints", constraints);
+  useEffect(() => {
+    let canceled = false;
+    setState("pending");
+    navigator.mediaDevices.getUserMedia(constraints).then(
+      (stream) => {
+        if (!canceled) {
+          setState("resolved");
+          setStream(stream);
+        }
+      },
+      (error) => {
+        if (!canceled) {
+          setState("rejected");
+          setError(error);
+        }
+      }
+    );
+
+    return () => {
+      canceled = true;
+    };
+  }, [constraints]);
+
+  // useEffect(() => () => stopMediaStream(stream), [stream]);
+
+  return { error, state, stream };
+}
+
+function VideoCamera({ videoRef, constraints }) {
+  const { error, state, stream } = useUserMedia(constraints);
 
   useEffect(() => {
-    // Gets all available devices
-    navigator.mediaDevices
-      .enumerateDevices()
-      // Filter devices on video input only
-      .then((devices) =>
-        devices.filter((device) => device.kind === "videoinput")
-      )
-      // Store available cameras in state
-      .then((cameras) => setCameras(cameras))
-      .catch((error) => {
-        console.log(error);
-      });
+    if (state !== "resolved" || !stream) {
+      return;
+    }
 
-    navigator.mediaDevices
-      .getUserMedia(getConstraints(activeCamera))
-      .then((stream) => {
-        let video = videoRef.current;
-        video.srcObject = stream;
-        video.setAttribute("playsinline", true);
-        video.setAttribute("autoplay", true);
-        video.play();
-      });
-  }, [videoRef, activeCamera]);
+    const video = videoRef.current;
+
+    video.srcObject = stream;
+    video.setAttribute("playsinline", true);
+    video.setAttribute("autoplay", true);
+    video.play();
+  }, [state, stream, videoRef]);
+
+  if (state === "pending") {
+    return <p>{"Waiting..."}</p>;
+  }
+
+  if (state === "rejected") {
+    return (
+      <p>
+        {"Error: "}
+        {error.message}
+      </p>
+    );
+  }
 
   return (
     <>
-      <form>
-        {cameras.length && (
-          <select onChange={handleCameraChange}>
-            {cameras.map((camera) => (
-              <option key={camera.deviceId} value={camera.deviceId}>
-                {camera.label}
-              </option>
-            ))}
-          </select>
-        )}
-      </form>
       <video ref={videoRef} />
     </>
   );

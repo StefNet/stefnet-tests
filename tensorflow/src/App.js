@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 import { getFilteredBodyparts, drawTextPoints } from "./utils";
@@ -27,6 +27,13 @@ const bodyPartsEmoticons = {
   // rightAnkle: "",
 };
 
+const initialConstraints = {
+  video: true,
+};
+
+const FACING_MODE_USER = "user";
+const FACING_MODE_ENVIRONMENT = "environment";
+
 const drawEmoticons = (pose, video, videoWidth, videoHeight, canvas) => {
   const ctx = canvas.current.getContext("2d");
   const filteredResult = getFilteredBodyparts(
@@ -41,8 +48,17 @@ const drawEmoticons = (pose, video, videoWidth, videoHeight, canvas) => {
 };
 
 function App() {
+  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
   const webcamEl = useRef(null);
   const canvasEl = useRef(null);
+
+  const handleCameraClick = useCallback(() => {
+    const camera = webcamEl.current;
+    camera.pause();
+    camera.srcObject = null;
+
+    setFacingMode(facingMode === "environment" ? "user" : "environment");
+  }, [facingMode]);
 
   const detectPose = async (posenet_model) => {
     if (webcamEl.current !== null && webcamEl.current.readyState === 4) {
@@ -74,7 +90,14 @@ function App() {
 
   return (
     <div className="App">
-      <VideoCamera videoRef={webcamEl} />
+      <button onClick={handleCameraClick}>flipbutton</button>
+      <VideoCamera
+        videoRef={webcamEl}
+        constraints={{
+          ...initialConstraints,
+          facingMode,
+        }}
+      />
       <canvas ref={canvasEl} />
     </div>
   );

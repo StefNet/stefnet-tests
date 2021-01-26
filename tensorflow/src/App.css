@@ -10,6 +10,7 @@ canvas {
   z-index: 2;
 }
 
-body {
-  background: grey;
+button {
+  position: absolute;
+  z-index: 3;
 }
