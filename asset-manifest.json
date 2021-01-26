@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/stefnet-tests/static/css/main.8c077225.chunk.css",
-    "main.js": "/stefnet-tests/static/js/main.73512c15.chunk.js",
-    "main.js.map": "/stefnet-tests/static/js/main.73512c15.chunk.js.map",
+    "main.css": "/stefnet-tests/static/css/main.dd3fdeaa.chunk.css",
+    "main.js": "/stefnet-tests/static/js/main.75002921.chunk.js",
+    "main.js.map": "/stefnet-tests/static/js/main.75002921.chunk.js.map",
     "runtime-main.js": "/stefnet-tests/static/js/runtime-main.f50b7b03.js",
     "runtime-main.js.map": "/stefnet-tests/static/js/runtime-main.f50b7b03.js.map",
-    "static/js/2.8e08d73f.chunk.js": "/stefnet-tests/static/js/2.8e08d73f.chunk.js",
-    "static/js/2.8e08d73f.chunk.js.map": "/stefnet-tests/static/js/2.8e08d73f.chunk.js.map",
+    "static/js/2.5ccffe80.chunk.js": "/stefnet-tests/static/js/2.5ccffe80.chunk.js",
+    "static/js/2.5ccffe80.chunk.js.map": "/stefnet-tests/static/js/2.5ccffe80.chunk.js.map",
     "static/js/3.6bd82fa0.chunk.js": "/stefnet-tests/static/js/3.6bd82fa0.chunk.js",
     "static/js/3.6bd82fa0.chunk.js.map": "/stefnet-tests/static/js/3.6bd82fa0.chunk.js.map",
     "index.html": "/stefnet-tests/index.html",
-    "static/css/main.8c077225.chunk.css.map": "/stefnet-tests/static/css/main.8c077225.chunk.css.map",
-    "static/js/2.8e08d73f.chunk.js.LICENSE.txt": "/stefnet-tests/static/js/2.8e08d73f.chunk.js.LICENSE.txt"
+    "static/css/main.dd3fdeaa.chunk.css.map": "/stefnet-tests/static/css/main.dd3fdeaa.chunk.css.map",
+    "static/js/2.5ccffe80.chunk.js.LICENSE.txt": "/stefnet-tests/static/js/2.5ccffe80.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f50b7b03.js",
-    "static/js/2.8e08d73f.chunk.js",
-    "static/css/main.8c077225.chunk.css",
-    "static/js/main.73512c15.chunk.js"
+    "static/js/2.5ccffe80.chunk.js",
+    "static/css/main.dd3fdeaa.chunk.css",
+    "static/js/main.75002921.chunk.js"
   ]
 }
