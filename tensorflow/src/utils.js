@@ -14,18 +14,22 @@ export function drawTextPoints(keypoints, minConfidence, ctx, scale = 1) {
 
     const { y, x } = keypoint.position;
 
-    // Draws the text/emoticons on the keypoints
     drawEmoticon(ctx, x, y, scale, keypoint.emoticon);
   }
 }
 
+/**
+ * Draws the text/emoticon on the keypoints
+ */
 function drawEmoticon(ctx, x, y, scale, emoticon) {
-  // Draws the text/emoticons on the keypoints
   ctx.beginPath();
   ctx.arc(x * scale, y * scale, 3, 0, 2 * Math.PI);
   ctx.fillText(emoticon, x, y);
 }
 
+/**
+ * Draws emoticons on the canvas
+ */
 export function drawEmoticons(
   pose,
   video,
@@ -52,7 +56,7 @@ export function clearCanvas(canvas) {
 }
 
 /**
- * Get filtered bodyparts
+ * Returns merged and filtered array of keypoints/bodyparts
  */
 export const getFilteredBodyparts = (keypoints, bodyparts) =>
   keypoints.reduce((filtered, option) => {
@@ -64,39 +68,3 @@ export const getFilteredBodyparts = (keypoints, bodyparts) =>
     }
     return filtered;
   }, []);
-
-/**
- * Sets active camera contraints
- * @todo create seperate fuctions for updating camera and getting contraints
- */
-export function getConstraints(camera) {
-  if (camera) {
-    return {
-      audio: false,
-      video: camera,
-    };
-  }
-
-  return {
-    audio: false,
-    video: {
-      facingMode: "user",
-    },
-  };
-}
-
-// taken from https://github.com/bsonntag/stop-media-stream/blob/main/index.js
-function stopAndRemoveTrack(mediaStream) {
-  return function (track) {
-    track.stop();
-    mediaStream.removeTrack(track);
-  };
-}
-
-export function stopMediaStream(mediaStream) {
-  if (!mediaStream) {
-    return;
-  }
-
-  mediaStream.getTracks().forEach(stopAndRemoveTrack(mediaStream));
-}

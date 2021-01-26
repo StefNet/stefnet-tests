@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 import useUserMedia from "./useUserMedia";
 
 function VideoCamera({ videoRef, constraints }) {
@@ -29,5 +30,19 @@ function VideoCamera({ videoRef, constraints }) {
 
   return <video ref={videoRef} />;
 }
+
+VideoCamera.defaultProps = {
+  constraints: null,
+};
+
+VideoCamera.propTypes = {
+  /** Media constraints object */
+  constraints: PropTypes.shape({}),
+  /** Ref to the video element */
+  videoRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
+};
 
 export default VideoCamera;

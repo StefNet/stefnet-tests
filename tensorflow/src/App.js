@@ -1,25 +1,26 @@
 import { useRef, useState, useCallback } from "react";
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
-import { clearCanvas, stopMediaStream, drawEmoticons } from "./utils";
+import { clearCanvas, drawEmoticons } from "./utils";
 
 import "./App.css";
 import VideoCamera from "./components/VideoCamera/VideoCamera";
 
 // TODOS
-// - Use native camera resolution as input resolution for posenet
-// - Only show switch camera button if there are multiple cameras
+// - Only show button if there are multiple cameras
+// - Make emoticon settings adjstable by the user
+// - Allow multiple input resolutions
 
 // App consts
-const REFRESH_RATE = 500;
+const REFRESH_RATE = 100;
 const INPUT_RESOLUTION = { width: 640, height: 480 };
-const SCALE = 0.8;
+const SCALE = 1;
 const EMOTICONS = {
-  nose: "🔔",
-  leftEye: "❤️",
-  rightEye: "❤️",
-  leftEar: "💡",
-  rightEar: "💡",
+  nose: "❌",
+  leftEye: "🌀",
+  rightEye: "🌀",
+  leftEar: "⚠️",
+  rightEar: "⚠️",
 };
 
 function App() {
@@ -28,8 +29,9 @@ function App() {
   const canvasEl = useRef(null);
 
   const handleCameraClick = useCallback(() => {
-    stopMediaStream(canvasEl.current.srcObject);
+    // Clear emoticons from canvas
     clearCanvas(canvasEl.current);
+    // Set facing mode to environment or user
     setFacingMode(facingMode === "environment" ? "user" : "environment");
   }, [facingMode]);
 
